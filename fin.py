@@ -318,4 +318,4 @@ client.add_command(start_guessing_game)
 client.add_command(guess_number)
 
 
-client.run("MTE2NzM5NzM0NjUxNTEwNzkyMA.GbBS8i.A1-ocf2dS69oGjD_ZZMowpA5kvSo0e8cl8cD2U")
+client.run("Bot_Tocken")
