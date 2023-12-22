@@ -1,9 +1,10 @@
 # commands.py
-from googlesearch import search
+
 from googletrans import Translator
 from discord.ext import commands
 from game import GuessingGame
 import discord
+from game import CapitalQuizGame
 
 
 client = commands.Bot(command_prefix="!", intents=discord.Intents.all())
@@ -12,14 +13,6 @@ client = commands.Bot(command_prefix="!", intents=discord.Intents.all())
 translator = Translator()
 guessing_game = GuessingGame()
 
-# Commande de recherche sur internet
-@commands.command(name='search')
-async def search_command(ctx, *query):
-    query = ' '.join(query)
-    await ctx.send(f"Recherche sur internet pour : {query}")
-
-    for j, result in enumerate(search(query, num=5, stop=5, pause=2)):
-        await ctx.send(f"Résultat {j + 1}: {result}")
 
 # Commande de traduction
 @commands.command(name='translate')
@@ -50,6 +43,45 @@ async def guess_number(ctx, number: int):
     result = guessing_game.guess(number)
     await ctx.send(result)
 
+quiz_game = None
 
+@client.command(name='quizz')
+async def start_quizz(ctx):
+    global quiz_game  # Assure que la variable quiz_game est globale et accessible
 
-    
+    # Crée une instance du jeu de quiz si elle n'existe pas encore
+    if not quiz_game:
+        quiz_game = CapitalQuizGame()
+
+    await ctx.send("Bienvenue au quizz sur les capitales ! Répondez simplement avec !answer+reponse ")
+    question = quiz_game.get_next_question()
+    await ctx.send(question)
+
+@client.command(name='answer')
+async def answer_quizz(ctx, user_answer):
+    global quiz_game  # Assure que la variable quiz_game est globale et accessible
+
+    # Vérifie si le jeu de quiz a été initialisé
+    if not quiz_game:
+        await ctx.send("Le quizz n'a pas encore commencé. Utilisez !quizz pour commencer.")
+    else:
+        # Vérifie la réponse et affiche le résultat
+        result = quiz_game.check_answer(user_answer)
+        await ctx.send(result)
+
+        # Vérifie s'il y a une prochaine question
+        next_question = quiz_game.get_next_question()
+        if next_question:
+            await ctx.send(next_question)
+        else:
+            # Le quizz est terminé, affiche le score final
+            score = quiz_game.get_score()
+            await ctx.send(f"Quizz terminé ! {score}")
+            quiz_game = None  # Réinitialise le jeu pour permettre de commencer un nouveau quizz
+
+@commands.command(name='jeu')
+async def jeu_command(ctx):
+    games_available = "Voici les jeux disponibles :\n" \
+                      "1. Guessing Game (!start_guessing_game)\n" \
+                      "2. Capital Quiz Game (!quizz)"
+    await ctx.send(games_available)

@@ -35,4 +35,7 @@ Fait :
          
 6 - (6 points) - Pour avoir les points restants, vous êtes libre de rajouter toutes les fonctionnalités que vous voulez à votre bot discord.
                 - un jeu de devinette
+                -jeu de quizz
                 -traduction des phrases en d'autres langues
+
+

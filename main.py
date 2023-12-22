@@ -2,7 +2,9 @@ import asyncio
 import discord
 from discord.ext import commands
 import json
-from commands import search_command, translate_command, start_guessing_game, guess_number
+from commands import  translate_command, start_guessing_game, guess_number, answer_quizz, start_quizz
+from commands import jeu_command
+
 
 intents = discord.Intents.all()
 
@@ -75,12 +77,12 @@ root_node = TreeNode(
             yes_node=TreeNode(
                 "Aimez-vous les champignons?",
                 yes_node=TreeNode(question="Fin, vous pourriez aimer une pizza aux champignons et légumes!"),
-                no_node=TreeNode(question="Aimez-vous les olives? Fin, une pizza aux olives et légumes pourrait vous plaire!")
+                no_node=TreeNode(question="Fin, une pizza aux légumes pourrait vous plaire!")
             ),
             no_node=TreeNode(
                 "Voulez-vous des ingrédients épicés?",
                 yes_node=TreeNode(question="Fin, une pizza pepperoni épicée pourrait être votre choix!"),
-                no_node=TreeNode(question="Préférez-vous une pizza avec des légumes doux? Fin, une pizza margherita pourrait vous plaire.")
+                no_node=TreeNode(question="Fin, une pizza margherita pourrait vous plaire.")
             )
         ),
         no_node=TreeNode(  
@@ -92,29 +94,49 @@ root_node = TreeNode(
                     yes_node=TreeNode(question="Fin, optez pour une pizza crème fraîche saumon."),
                     no_node=TreeNode(question="Fin, pas de pizza au poisson, à part le saumon.")
                 ),
-                
                 no_node=TreeNode(
                     "Voulez-vous du poulet curry sur votre pizza?",
-                    yes_node=TreeNode(question="Fin, optez pour une pizza crème fraiche au  poulet curry."),
-                    no_node=TreeNode(question="Fin, optez pour une pizza sans crème fraîche mais avec des légumes."))
+                    yes_node=TreeNode(question="Fin, optez pour une pizza crème fraiche au poulet curry."),
+                    no_node=TreeNode(question="Fin, optez pour une pizza sans crème fraîche mais avec des légumes.")
+                )
             )
         )
     ),
     no_node=TreeNode(
         "Aimez-vous les pâtes?",
         yes_node=TreeNode(
-            "Aimez-vous les pâtes à la sauce tomate?",
+            "Aimeriez-vous les pâtes à la sauce tomate?",
             yes_node=TreeNode(
-                "Aimez-vous la viande hachée?",
+                "Aimeriez-vous la viande hachée?",
                 yes_node=TreeNode(
                     "Préférez-vous des pâtes épicées?",
-                    yes_node=TreeNode(question="Fin, des pâtes à la bolognaise épicées pourraient être délicieuses!"),
-                    no_node=TreeNode(question="Fin, des pâtes à la bolognaise classiques pourraient vous plaire.")
+                    yes_node=TreeNode(
+                        "Aimeriez-vous des pâtes à la bolognaise épicées?",
+                        yes_node=TreeNode(question="Fin, des pâtes à la bolognaise épicées pourraient être délicieuses !"),
+                        no_node=TreeNode(question="Fin, des pâtes à la bolognaise classiques pourraient vous plaire.")
+                    ),
+                    no_node=TreeNode(
+                        "Aimeriez-vous des pâtes aux olives et tomates séchées?",
+                        yes_node=TreeNode(question="Fin, essayez des pâtes aux olives et tomates séchées peut-être."),
+                        no_node=TreeNode(question="Fin, explorez d'autres options de sauce pour vos pâtes.")
+                    )
+                )
+            ),
+            no_node=TreeNode(
+                "Aimeriez-vous les pâtes à la crème fraîche?",
+                yes_node=TreeNode(
+                    "Aimeriez-vous du poulet dans vos pâtes à la crème fraîche?",
+                    yes_node=TreeNode(question="Fin, des pâtes Alfredo au poulet pourraient vous plaire !"),
+                    no_node=TreeNode(
+                        "Aimeriez-vous du saumon dans vos pâtes à la crème fraîche?",
+                        yes_node=TreeNode(question="Fin, des pâtes au saumon avec de la crème fraîche pourraient vous plaire."),
+                        no_node=TreeNode(question="Fin, explorez d'autres options de sauce pour vos pâtes.")
+                    )
                 ),
                 no_node=TreeNode(
-                    "Aimez-vous les olives?",
-                    yes_node=TreeNode(question="Fin, essayez des pâtes aux olives et tomates séchées peut-être."),
-                    no_node=TreeNode(question="Fin, explorez d'autres options de sauce pour vos pâtes.")
+                    "Aimeriez-vous les pâtes avec une autre sauce que la tomate et la crème fraîche?",
+                    yes_node=TreeNode(question="Fin, explorez d'autres options de sauce pour vos pâtes."),
+                    no_node=TreeNode(question="Fin, optez pour un autre repas.")
                 )
             )
         ),
@@ -155,6 +177,8 @@ root_node = TreeNode(
         )
     )
 )
+
+
 async def start_questionnaire(ctx):
     await root_node.ask_question(ctx)
 
@@ -312,10 +336,24 @@ def get_lock(user_id):
 
     return command_history_locks[user_id]
 
-client.add_command(search_command)
+
 client.add_command(translate_command)
 client.add_command(start_guessing_game)
 client.add_command(guess_number)
+client.add_command(answer_quizz)
+client.add_command(start_quizz)
+client.add_command(jeu_command)
 
 
-client.run("Bot_Tocken")
+@client.command(name='commands')
+async def show_commands(ctx):
+    all_commands = [
+        '!last_command', '!all_commands', '!start', '!guess', '!start_guessing_game', '!reset', '!speak_about',
+        '!clear_history', '!commands', '!quizz' , '!jeu'
+    ]
+    commands_str = '\n'.join(all_commands)
+    await ctx.send(f"Les commandes disponibles:\n{commands_str}")
+
+
+
+client.run("MTE2NzM5NzM0NjUxNTEwNzkyMA.G0DHwl.ye9MG9UamtOkhxzIN7Jvybh22w6qzdAZ0AV1aI")
