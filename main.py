@@ -356,4 +356,4 @@ async def show_commands(ctx):
 
 
 
-client.run("MTE2NzM5NzM0NjUxNTEwNzkyMA.G0DHwl.ye9MG9UamtOkhxzIN7Jvybh22w6qzdAZ0AV1aI")
+client.run("Bot-token")
