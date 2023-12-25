@@ -22,7 +22,7 @@ async def translate_command(ctx, target_language, *text):
     await ctx.send(f"Texte traduit ({translated_text.dest}): {translated_text.text}")
 
 
-# Nouvelle instance du jeu
+
 guessing_game = GuessingGame()
 
 # Commande pour démarrer le jeu de devinettes
@@ -47,9 +47,9 @@ quiz_game = None
 
 @client.command(name='quizz')
 async def start_quizz(ctx):
-    global quiz_game  # Assure que la variable quiz_game est globale et accessible
+    global quiz_game  
 
-    # Crée une instance du jeu de quiz si elle n'existe pas encore
+    
     if not quiz_game:
         quiz_game = CapitalQuizGame()
 
@@ -59,9 +59,9 @@ async def start_quizz(ctx):
 
 @client.command(name='answer')
 async def answer_quizz(ctx, user_answer):
-    global quiz_game  # Assure que la variable quiz_game est globale et accessible
+    global quiz_game  
 
-    # Vérifie si le jeu de quiz a été initialisé
+    
     if not quiz_game:
         await ctx.send("Le quizz n'a pas encore commencé. Utilisez !quizz pour commencer.")
     else:
@@ -77,7 +77,7 @@ async def answer_quizz(ctx, user_answer):
             # Le quizz est terminé, affiche le score final
             score = quiz_game.get_score()
             await ctx.send(f"Quizz terminé ! {score}")
-            quiz_game = None  # Réinitialise le jeu pour permettre de commencer un nouveau quizz
+            quiz_game = None  
 
 @commands.command(name='jeu')
 async def jeu_command(ctx):

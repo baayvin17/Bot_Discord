@@ -40,14 +40,14 @@ class CapitalQuizGame:
         self.current_question = None
         self.correct_answers = 0
         self.attempts = 0
-        self.max_questions = 10  # Maximum number of questions
+        self.max_questions = 10  
 
     def get_next_question(self):
         if self.attempts >= self.max_questions:
-            return None  # Toutes les questions ont été posées
+            return None 
 
         while True:
-            # Génère une question jusqu'à ce qu'une question unique soit trouvée
+            
             question = random.choice(list(self.all_capitals.keys()))
             if question not in self.questions:
                 self.questions.append(question)
@@ -67,5 +67,5 @@ class CapitalQuizGame:
     def get_score(self):
         return f"Vous avez obtenu {self.correct_answers} réponses correctes sur {self.max_questions} questions."
 
-# Déclarez quiz_game en tant que variable globale en dehors des fonctions
+
 quiz_game = None
