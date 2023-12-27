@@ -37,5 +37,6 @@ Fait :
                 - un jeu de devinette
                 -jeu de quizz
                 -traduction des phrases en d'autres langues
+                - jeu hangman
 
 
