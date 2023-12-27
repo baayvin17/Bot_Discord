@@ -3,8 +3,8 @@ import discord
 from discord.ext import commands
 import json
 from commands import  translate_command, start_guessing_game, guess_number, answer_quizz, start_quizz
-from commands import jeu_command
-
+from commands import jeu_command, start_pendu, guess_pendu
+    
 
 intents = discord.Intents.all()
 
@@ -67,7 +67,7 @@ async def wait_for_yes_or_no(ctx):
         await ctx.send("Temps écoulé. Conversation terminée.")
         return False
 
-# Arbre 
+# Arbre de décision mis à jour
 root_node = TreeNode(
     "Aimez-vous les pizzas?",
     yes_node=TreeNode(
@@ -194,7 +194,7 @@ try:
         command_history_data = json.load(file)
         command_history = {}
 
-        #  listes chaînées
+        # Convertir les données en listes chaînées
         for user_id, commands in command_history_data.items():
             if commands:
                 head = CommandNode(commands[0])
@@ -209,7 +209,7 @@ try:
 except FileNotFoundError:
     command_history = {}
 
-# File d'attente pour gérer  l'historique
+# File d'attente pour gérer l'accès concurrentiel à l'historique
 command_history_locks = {}
 
 @client.event
@@ -237,7 +237,7 @@ async def on_message(message):
     user_id = str(message.author.id)
     command = message.content.lower()
 
-    
+    # Ajouter la commande à la liste chaînée, sauf si c'est la commande !last_command
     if command != "!last_command":
         async with asyncio.Lock():
             if user_id not in command_history:
@@ -343,13 +343,14 @@ client.add_command(guess_number)
 client.add_command(answer_quizz)
 client.add_command(start_quizz)
 client.add_command(jeu_command)
-
+client.add_command(start_pendu)
+client.add_command(guess_pendu)
 
 @client.command(name='commands')
 async def show_commands(ctx):
     all_commands = [
         '!last_command', '!all_commands', '!start', '!guess', '!start_guessing_game', '!reset', '!speak_about',
-        '!clear_history', '!commands', '!quizz' , '!jeu'
+        '!clear_history', '!commands', '!quizz' , '!jeu', '!start_pendu', '!guess_pendu'
     ]
     commands_str = '\n'.join(all_commands)
     await ctx.send(f"Les commandes disponibles:\n{commands_str}")
