@@ -119,8 +119,8 @@ async def guess_pendu(ctx, letter):
 
         if '_' not in hangman_game.word_display:
             await ctx.send("Félicitations ! Vous avez deviné le mot.")
-            hangman_game = None  # Réinitialise le jeu pour permettre de commencer un nouveau jeu du pendu
+            hangman_game = None  
 
         elif hangman_game.attempts_left == 0:
             await ctx.send(f"Désolé, vous avez épuisé toutes vos tentatives. Le mot était : {hangman_game.word_to_guess}")
-            hangman_game = None  # Réinitialise le jeu pour permettre de commencer un nouveau jeu du pendu
+            hangman_game = None  

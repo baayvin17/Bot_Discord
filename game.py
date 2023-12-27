@@ -87,7 +87,7 @@ class HangmanGame:
         self.attempts_left = self.max_attempts
         self.word_display = ['_'] * len(self.word_to_guess)
 
-        # Liste représentant le dessin du pendu à chaque étape (adaptée pour 11 chances)
+        # Liste représentant le dessin du pendu à chaque étape 
         self.hangman_steps = [
             """
             ---------
