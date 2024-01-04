@@ -67,7 +67,7 @@ async def wait_for_yes_or_no(ctx):
         await ctx.send("Temps écoulé. Conversation terminée.")
         return False
 
-# Arbre de décision mis à jour
+# Arbre 
 root_node = TreeNode(
     "Aimez-vous les pizzas?",
     yes_node=TreeNode(
@@ -194,7 +194,7 @@ try:
         command_history_data = json.load(file)
         command_history = {}
 
-        # Convertir les données en listes chaînées
+        #  listes chaînées
         for user_id, commands in command_history_data.items():
             if commands:
                 head = CommandNode(commands[0])
@@ -209,7 +209,7 @@ try:
 except FileNotFoundError:
     command_history = {}
 
-# File d'attente pour gérer l'accès concurrentiel à l'historique
+# File d'attente pour gérer l'accès  à l'historique
 command_history_locks = {}
 
 @client.event

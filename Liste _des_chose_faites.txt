@@ -19,12 +19,10 @@ Fait :
 
 
 
-( aide : il faut que quand le bot pose une question que je reponde oui ou non il faut que sa soit 2 reponse differente une pour oui et une autre pour non)
 
 
 
-
-4-                          Via un arbre binaire ou non, créer un système de discution permettant de faire un questionnaire à l'utilisateur. L'utilisateur pourra appeler une commande "help" permettant de 
+3-  (4 points)              Via un arbre binaire ou non, créer un système de discution permettant de faire un questionnaire à l'utilisateur. L'utilisateur pourra appeler une commande "help" permettant de 
                             lancer la conversation et le bot tentera de définir son besoin en lui posant une série de questions prédéfinies, à la fin de la conversation une réponse sera donné au besoin. 
                             les sujets que devra aborder sont libre.
                             De plus la gestion des discutions avec le bot doit avoir un certain nombre de commandes :
