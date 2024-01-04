@@ -40,7 +40,7 @@ class CapitalQuizGame:
         self.current_question = None
         self.correct_answers = 0
         self.attempts = 0
-        self.max_questions = 10  # Maximum number of questions
+        self.max_questions = 10  
 
     def get_next_question(self):
         if self.attempts >= self.max_questions:
@@ -67,7 +67,7 @@ class CapitalQuizGame:
     def get_score(self):
         return f"Vous avez obtenu {self.correct_answers} réponses correctes sur {self.max_questions} questions."
 
-# Déclarez quiz_game en tant que variable globale en dehors des fonctions
+
 quiz_game = None
 
 
@@ -83,11 +83,11 @@ class HangmanGame:
 
         self.word_to_guess = random.choice(self.word_list).upper()
         self.guesses = []
-        self.max_attempts = 11  # Changement du nombre de chances
+        self.max_attempts = 11  
         self.attempts_left = self.max_attempts
         self.word_display = ['_'] * len(self.word_to_guess)
 
-        # Liste représentant le dessin du pendu à chaque étape 
+        # Liste  dessin du pendu à chaque étape 
         self.hangman_steps = [
             """
             ---------

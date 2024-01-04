@@ -61,7 +61,7 @@ async def start_quizz(ctx):
 
 @client.command(name='answer')
 async def answer_quizz(ctx, user_answer):
-    global quiz_game  # Assure que la variable quiz_game est globale et accessible
+    global quiz_game  
 
     # Vérifie si le jeu de quiz a été initialisé
     if not quiz_game:
