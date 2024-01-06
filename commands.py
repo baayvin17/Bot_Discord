@@ -1,6 +1,5 @@
 # commands.py
 
-from googletrans import Translator
 from discord.ext import commands
 from game import GuessingGame
 import discord
@@ -11,17 +10,10 @@ from game import HangmanGame
 client = commands.Bot(command_prefix="!", intents=discord.Intents.all())
 
 
-translator = Translator()
 guessing_game = GuessingGame()
 hangman_game = None
 
 
-# Commande de traduction
-@commands.command(name='translate')
-async def translate_command(ctx, target_language, *text):
-    text = ' '.join(text)
-    translated_text = translator.translate(text, dest=target_language)
-    await ctx.send(f"Texte traduit ({translated_text.dest}): {translated_text.text}")
 
 
 
