@@ -2,7 +2,7 @@ import asyncio
 import discord
 from discord.ext import commands
 import json
-from commands import  translate_command, start_guessing_game, guess_number, answer_quizz, start_quizz
+from commands import   start_guessing_game, guess_number, answer_quizz, start_quizz
 from commands import jeu_command, start_pendu, guess_pendu
     
 
@@ -337,7 +337,6 @@ def get_lock(user_id):
     return command_history_locks[user_id]
 
 
-client.add_command(translate_command)
 client.add_command(start_guessing_game)
 client.add_command(guess_number)
 client.add_command(answer_quizz)
@@ -357,4 +356,4 @@ async def show_commands(ctx):
 
 
 
-client.run("Bot-token")
+client.run("Bot_token")
